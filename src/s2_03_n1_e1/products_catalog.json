@@ -1,0 +1,176 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "_id",
+      "brand",
+      "graduations",
+      "lens_colors",
+      "frame",
+      "price"
+    ],
+    "properties": {
+        "_id": {
+            "bsonType": "objectId",
+            "description": "Unique identifier for the product"
+      },
+        "brand": {
+            "bsonType": "object",
+            "required": ["brand_name", "supplier"],
+            "properties": {
+                "brand_name": {
+                    "bsonType": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "description": "Name of the brand"
+                },
+                "supplier": {
+                    "bsonType": "object",
+                    "required": [
+                    "supplier_id",
+                    "supplier_name",
+                    "nif",
+                    "contact",
+                    "address",
+                    "country"
+                    ],
+                    "properties": {
+                        "supplier_id": {
+                            "bsonType": "objectId",
+                            "description": "Reference to supplier"
+                        },
+                        "supplier_name": {
+                            "bsonType": "string",
+                            "maxLength": 100,
+                            "description": "Name of the supplier"
+                        },
+                        "nif": {
+                            "bsonType": "string",
+                            "minLength": 1,
+                            "maxLength": 25,
+                            "description": "Tax identification number"
+                        },
+                        "contact": {
+                            "bsonType": "object",
+                            "required": ["phone_country_code", "phone", "fax"],
+                            "properties": {
+                                "phone_country_code": {
+                                    "bsonType": "string",
+                                    "description": "Country code for phone"
+                                },
+                                "phone": {
+                                    "bsonType": "string",
+                                    "description": "Phone number"
+                                },
+                                "fax": {
+                                    "bsonType": "string",
+                                    "description": "Fax number (optional)"
+                                }
+                            },
+                            "description": "Contact information"
+                        },
+                        "address": {
+                            "bsonType": "object",
+                            "required": ["line_one", "city", "postcode"],
+                            "properties": {
+                                "line_one": {
+                                    "bsonType": "string",
+                                    "description": "Primary address line"
+                                },
+                                "line_two": {
+                                    "bsonType": "string",
+                                    "description": "Secondary address line (optional)"
+                                },
+                                "city": {
+                                    "bsonType": "string",
+                                    "maxLength": 50,
+                                    "description": "City name"
+                                },
+                                "postcode": {
+                                    "bsonType": "string",
+                                    "maxLength": 10,
+                                    "description": "Postal code"
+                                }
+                            },
+                            "description": "Address information"
+                        },
+                        "country": {
+                            "bsonType": "string",
+                            "maxLength": 50,
+                            "description": "Country name"
+                        }
+                    },
+                    "description": "Supplier information"
+                }
+            },
+            "description": "Brand and supplier info"
+        },
+        "graduations": {
+            "bsonType": "object",
+            "required": ["left_lens", "right_lens"],
+            "properties": {
+                "left_lens": {
+                    "bsonType": "double",
+                    "minimum": -20.00,
+                    "maximum": 20.00,
+                    "description": "Left lens graduation"
+                },
+                "right_lens": {
+                    "bsonType": "double",
+                    "minimum": -20.00,
+                    "maximum": 20.00,
+                    "description": "Right lens graduation"
+                }
+            },
+            "description": "Lens graduations"
+        },
+        "lens_colors": {
+            "bsonType": "object",
+            "required": ["left", "right"],
+            "properties": {
+                "left": {
+                    "bsonType": "string",
+                    "maxLength": 30,
+                    "description": "Left lens color"
+                },
+                "right": {
+                    "bsonType": "string",
+                    "maxLength": 30,
+                    "description": "Right lens color"
+                }
+            },
+            "description": "Lens colors"
+        },
+        "frame": {
+            "bsonType": "object",
+            "required": ["type", "color"],
+            "properties": {
+                "type": {
+                    "bsonType": "string",
+                    "enum": ["floating", "plastic", "metallic"],
+                    "description": "Frame type"
+                },
+                "color": {
+                    "bsonType": "string",
+                    "maxLength": 30,
+                    "description": "Frame color"
+                }
+            },
+            "description": "Frame information"
+        },
+        "price": {
+            "bsonType": "double",
+            "minimum": 0.01,
+            "description": "Current selling price"
+        },
+        "created_at": {
+            "bsonType": "date",
+            "description": "Product creation timestamp"
+        },
+        "updated_at": {
+            "bsonType": "date",
+            "description": "Product last update timestamp"
+        }
+    }
+  }
+}

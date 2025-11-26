@@ -1,0 +1,178 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "_id",
+      "brand",
+      "graduations",
+      "lens_colors",
+      "frame",
+      "price"
+    ],
+    "properties": {
+        "_id": {
+            "bsonType": "objectId",
+            "description": "Unique identifier for the product"
+      },
+        "brand": {
+        "bsonType": "object",
+        "required": ["brand_name"],
+        "properties": {
+          "brand_name": {
+            "bsonType": "string",
+            "maxLength": 50
+          }
+        },
+        "description": "Brand info"
+      },
+        "graduations": {
+            "bsonType": "object",
+            "required": ["left_lens", "right_lens"],
+            "properties": {
+                "left_lens": {
+                    "bsonType": "double",
+                    "minimum": -20.00,
+                    "maximum": 20.00,
+                    "description": "Left lens graduation"
+                },
+                "right_lens": {
+                    "bsonType": "double",
+                    "minimum": -20.00,
+                    "maximum": 20.00,
+                    "description": "Right lens graduation"
+                }
+            },
+            "description": "Lens graduations"
+        },
+        "lens_colors": {
+            "bsonType": "object",
+            "required": ["left", "right"],
+            "properties": {
+                "left": {
+                    "bsonType": "string",
+                    "maxLength": 30,
+                    "description": "Left lens color"
+                },
+                "right": {
+                    "bsonType": "string",
+                    "maxLength": 30,
+                    "description": "Right lens color"
+                }
+            },
+            "description": "Lens colors"
+        },
+        "frame": {
+            "bsonType": "object",
+            "required": ["type", "color"],
+            "properties": {
+                "type": {
+                    "bsonType": "string",
+                    "enum": ["floating", "plastic", "metallic"],
+                    "description": "Frame type"
+                },
+                "color": {
+                    "bsonType": "string",
+                    "maxLength": 30,
+                    "description": "Frame color"
+                }
+            },
+            "description": "Frame information"
+        },
+        "price": {
+            "bsonType": "double",
+            "minimum": 0.01,
+            "description": "Current selling price"
+        },
+        "supplier": {
+            "bsonType": "object",
+            "required": ["supplier_id", "supplier_name"],
+            "properties": {
+                "supplier_id": {
+                    "bsonType": "objectId",
+                    "description": "Reference to suppliers collection for detailed info"
+                },
+                "supplier_name": {
+                    "bsonType": "string",
+                    "maxLength": 100
+                }
+            },
+            "description": "Supplier information for magnifying glass detail view"
+        },
+        "orders": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "object",
+                "required": [
+                    "order_id",
+                    "order_date",
+                    "quantity",
+                    "total_amount",
+                    "customer",
+                    "employee"
+                ],
+                "properties": {
+                    "order_id": {
+                        "bsonType": "int",
+                        "minimum": 1,
+                        "description": "Unique order identifier"
+                    },
+                    "order_date": {
+                        "bsonType": "date",
+                        "description": "Date and time of the order"
+                    },
+                    "quantity": {
+                        "bsonType": "int",
+                        "minimum": 1,
+                        "description": "Number of items ordered"
+                    },
+                    "total_amount": {
+                        "bsonType": "double",
+                        "minimum": 0.01,
+                        "description": "Total price of the order (price * quantity)"
+                    },
+                    "customer": {
+                        "bsonType": "object",
+                        "required": ["customer_id", "customer_name", "postcode", "phone", "email", "registration_date"],
+                        "properties": {
+                            "customer_id": {
+                                "bsonType": "objectId",
+                                "description": "Reference to customers collection for detailed info"
+                            },
+                            "customer_name": {
+                                "bsonType": "string",
+                                "maxLength": 100
+                            }
+                        },
+                        "description": "Customer information for magnifying customer card"
+                    },
+                    "employee": {
+                        "bsonType": "object",
+                        "required": ["employee_id", "employee_name"],
+                        "properties": {
+                            "employee_id": {
+                                "bsonType": "objectId",
+                                "description": "ID of employee who made the sale"
+                            },
+                            "employee_name": {
+                                "bsonType": "string",
+                                "maxLength": 100,
+                                "description": "Name of the employee"
+                            }
+                        },
+                        "description": "Employee who processed this order"
+                    }
+                }
+            },
+            "description": "Array of purchases made for this glasses product"
+        },
+        "created_at": {
+            "bsonType": "date",
+            "description": "Document creation timestamp"
+        },
+        "updated_at": {
+            "bsonType": "date",
+            "description": "Document last update timestamp"
+        }
+    }
+  }
+}

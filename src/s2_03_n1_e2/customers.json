@@ -1,0 +1,66 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "_id",
+      "customer_name",
+      "email",
+      "phone",
+      "postcode",
+      "registration_date"
+    ],
+    "properties": {
+        "_id": {
+            "bsonType": "objectId",
+            "description": "Unique identifier for the customer"
+        },
+        "customer_name": {
+            "bsonType": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Full name of the customer"
+        },
+        "email": {
+            "bsonType": "string",
+            "description": "Unique email address"
+        },
+        "phone": {
+            "bsonType": "string",
+            "maxLength": 20,
+            "description": "Phone number (optional country code)"
+        },
+        "postcode": {
+            "bsonType": "string",
+            "maxLength": 20,
+            "description": "Postal code"
+        },
+        "registration_date": {
+            "bsonType": "date",
+            "description": "Date when customer registered"
+        },
+        "recommended_by": {
+            "bsonType": ["object", "null"],
+            "required": ["customer_id", "customer_name"],
+            "properties": {
+                "customer_id": {
+                    "bsonType": "objectId",
+                    "description": "Reference to recommending customer"
+                },
+                "customer_name": {
+                    "bsonType": "string",
+                    "description": "Name of recommending customer"
+                }
+            },
+            "description": "Customer who recommended this person"
+        },
+        "created_at": {
+            "bsonType": "date",
+            "description": "Document creation timestamp"
+        },
+        "updated_at": {
+            "bsonType": "date",
+            "description": "Document last update timestamp"
+        }
+    }
+  }
+}

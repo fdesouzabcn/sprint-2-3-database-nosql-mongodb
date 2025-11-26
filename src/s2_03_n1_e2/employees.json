@@ -1,0 +1,45 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "_id",
+      "employee_name",
+      "position",
+      "hire_date"
+    ],
+    "properties": {
+        "_id": {
+            "bsonType": "objectId",
+            "description": "Unique identifier for the employee"
+        },
+        "employee_name": {
+            "bsonType": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Full name of the employee"
+        },
+        "position": {
+            "bsonType": "string",
+            "maxLength": 80,
+            "enum": [
+            "Sales Manager",
+            "Sales Associate",
+            "Optician"
+            ],
+            "description": "Job position"
+        },
+        "hire_date": {
+            "bsonType": "date",
+            "description": "Date when employee was hired"
+        },
+        "created_at": {
+            "bsonType": "date",
+            "description": "Document creation timestamp"
+        },
+        "updated_at": {
+            "bsonType": "date",
+            "description": "Document last update timestamp"
+        }
+    }
+  }
+}
