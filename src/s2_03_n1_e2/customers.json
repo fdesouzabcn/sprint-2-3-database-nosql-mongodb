@@ -38,20 +38,9 @@
             "bsonType": "date",
             "description": "Date when customer registered"
         },
-        "recommended_by": {
-            "bsonType": ["object", "null"],
-            "required": ["customer_id", "customer_name"],
-            "properties": {
-                "customer_id": {
-                    "bsonType": "objectId",
-                    "description": "Reference to recommending customer"
-                },
-                "customer_name": {
-                    "bsonType": "string",
-                    "description": "Name of recommending customer"
-                }
-            },
-            "description": "Customer who recommended this person"
+        "recommended_by_id": {
+            "bsonType": ["objectId", "null"],
+            "description": "Reference to customer who recommended (null if none)"
         },
         "created_at": {
             "bsonType": "date",

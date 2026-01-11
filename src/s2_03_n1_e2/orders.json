@@ -1,0 +1,60 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "_id",
+      "order_date",
+      "glasses_id",
+      "customer_id",
+      "employee_id",
+      "quantity",
+      "unit_price",
+      "total_amount"
+    ],
+    "properties": {
+      "_id": {
+        "bsonType": "objectId",
+        "description": "Unique order identifier"
+      },
+      "order_date": {
+        "bsonType": "date",
+        "description": "Date and time of the order"
+      },
+      "glasses_id": {
+        "bsonType": "objectId",
+        "description": "Reference to glasses collection"
+      },
+      "customer_id": {
+        "bsonType": "objectId",
+        "description": "Reference to customers collection"
+      },
+      "employee_id": {
+        "bsonType": "objectId",
+        "description": "Reference to employees collection"
+      },
+      "quantity": {
+        "bsonType": "int",
+        "minimum": 1,
+        "description": "Number of items ordered"
+      },
+      "unit_price": {
+        "bsonType": "double",
+        "minimum": 0.01,
+        "description": "Price per unit at time of sale"
+      },
+      "total_amount": {
+        "bsonType": "double",
+        "minimum": 0.01,
+        "description": "Total price of the order (unit_price * quantity)"
+      },
+      "created_at": {
+        "bsonType": "date",
+        "description": "Document creation timestamp"
+      },
+      "updated_at": {
+        "bsonType": "date",
+        "description": "Document last update timestamp"
+        }
+    }
+  }
+}

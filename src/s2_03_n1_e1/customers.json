@@ -11,224 +11,174 @@
       "orders"
     ],
     "properties": {
-        "_id": {
+      "_id": {
+        "bsonType": "objectId",
+        "description": "Unique identifier for the customer"
+      },
+      "customer_name": {
+        "bsonType": "string",
+        "minLength": 1,
+        "maxLength": 100,
+        "description": "Full name of the customer"
+      },
+      "email": {
+        "bsonType": "string",
+        "description": "Unique email address"
+      },
+      "phone": {
+        "bsonType": "string",
+        "description": "Phone number (optional country code)"
+      },
+      "postcode": {
+        "bsonType": "string",
+        "maxLength": 20,
+        "description": "Postal code"
+      },
+      "registration_date": {
+        "bsonType": "date",
+        "description": "Date when customer registered"
+      },
+      "recommended_by": {
+        "bsonType": ["object", "null"],
+        "required": ["customer_id", "customer_name"],
+        "properties": {
+          "customer_id": {
             "bsonType": "objectId",
-            "description": "Unique identifier for the customer"
-        },
-        "customer_name": {
+            "description": "Reference to recommending customer"
+          },
+          "customer_name": {
             "bsonType": "string",
-            "minLength": 1,
-            "maxLength": 100,
-            "description": "Full name of the customer"
+            "description": "Name of recommending customer"
+          }
         },
-        "email": {
-            "bsonType": "string",
-            "description": "Unique email address"
-        },
-        "phone": {
-            "bsonType": "string",
-            "description": "Phone number (optional country code)"
-        },
-        "postcode": {
-            "bsonType": "string",
-            "maxLength": 20,
-            "description": "Postal code"
-        },
-        "registration_date": {
-            "bsonType": "date",
-            "description": "Date when customer registered"
-        },
-        "recommended_by": {
-            "bsonType": ["object", "null"],
-            "required": ["customer_id", "customer_name"],
-            "properties": {
-                "customer_id": {
-                    "bsonType": "objectId",
-                    "description": "Reference to recommending customer"
-                },
-                "customer_name": {
-                    "bsonType": "string",
-                    "description": "Name of recommending customer"
-                }
+        "description": "Customer who recommended this person"
+      },
+      "orders": {
+        "bsonType": "array",
+        "description": "Purchase history",
+        "items": {
+          "bsonType": "object",
+          "required": [
+            "order_id",
+            "order_date",
+            "quantity",
+            "total_amount",
+            "employee_id",
+            "product_id",
+            "glasses_snapshot"
+          ],
+          "properties": {
+            "order_id": {
+              "bsonType": "int",
+              "minimum": 1,
+              "description": "Unique order identifier"
             },
-            "description": "Customer who recommended this person"
-        },
-        "orders": {
-            "bsonType": "array",
-            "description": "Historial completo de compras del cliente",
-            "items": {
-                "bsonType": "object",
-                "required": [
-                    "order_id",
-                    "order_date",
-                    "quantity",
-                    "total_amount",
-                    "employee",
-                    "glasses"
-                ],
-                "properties": {
-                    "order_id": {
-                        "bsonType": "int",
-                        "minimum": 1,
-                        "description": "Unique order identifier"
+            "order_date": {
+              "bsonType": "date",
+              "description": "Date and time of the order"
+            },
+            "quantity": {
+              "bsonType": "int",
+              "minimum": 1,
+              "description": "Number of items ordered"
+            },
+            "total_amount": {
+              "bsonType": "double",
+              "minimum": 0.01,
+              "description": "Total price (price * quantity)"
+            },
+            "employee_id": {
+              "bsonType": "objectId",
+              "description": "Reference to employee (not shown in UI)"
+            },
+            "product_id": {
+              "bsonType": "objectId",
+              "description": "Reference to product catalog (not shown in UI)"
+            },
+            "glasses_snapshot": {
+              "bsonType": "object",
+              "required": [
+                "brand_name",
+                "graduations",
+                "lens_colors",
+                "frame",
+                "price"
+              ],
+              "properties": {
+                "brand_name": {
+                  "bsonType": "string",
+                  "maxLength": 50,
+                  "description": "Brand at purchase time"
+                },
+                "graduations": {
+                  "bsonType": "object",
+                  "required": ["left_lens", "right_lens"],
+                  "properties": {
+                    "left_lens": {
+                      "bsonType": "double",
+                      "minimum": -20.00,
+                      "maximum": 20.00,
+                      "description": "Left lens graduation"
                     },
-                    "order_date": {
-                        "bsonType": "date",
-                        "description": "Date and time of the order"
-                    },
-                    "quantity": {
-                        "bsonType": "int",
-                        "minimum": 1,
-                        "description": "Number of items ordered"
-                    },
-                    "total_amount": {
-                        "bsonType": "double",
-                        "minimum": 0.01,
-                        "description": "Total price of the order (price * quantity)"
-                    },
-                    "employee": {
-                        "bsonType": "object",
-                        "required": ["employee_id", "employee_name", "position"],
-                        "properties": {
-                            "employee_id": {
-                                "bsonType": "objectId",
-                                "description": "ID of employee who made the sale"
-                            },
-                            "employee_name": {
-                                "bsonType": "string",
-                                "minLength": 1,
-                                "maxLength": 100,
-                                "description": "Name of the employee"
-                            },
-                            "position": {
-                                "bsonType": "string",
-                                "enum": ["Sales Manager", "Sales Associate", "Optician"],
-                                "description": "Job position of the employee"
-                            }
-                        },
-                        "description": "Employee who processed this order"
-                    },
-                    "glasses": {
-                        "bsonType": "object",
-                        "required": [
-                            "product_id",
-                            "brand",
-                            "graduations",
-                            "lens_colors",
-                            "frame",
-                            "price"
-                        ],
-                        "properties": {
-                            "product_id": {
-                                "bsonType": "objectId",
-                                "description": "Reference to product in catalog"
-                            },
-                            "brand": {
-                                "bsonType": "object",
-                                "required": ["brand_name", "supplier"],
-                                "properties": {
-                                    "brand_name": {
-                                        "bsonType": "string",
-                                        "maxLength": 50,
-                                        "description": "Name of the brand"
-                                        },
-                                    "supplier": {
-                                        "bsonType": "object",
-                                        "required": ["supplier_name", "nif"],
-                                        "properties": {
-                                            "supplier_name": {
-                                                "bsonType": "string",
-                                                "maxLength": 100,
-                                                "description": "Name of the supplier"
-                                            },
-                                            "nif": {
-                                                "bsonType": "string",
-                                                "maxLength": 25,
-                                                "description": "NIF/CIF of supplier"
-                                            },
-                                            "country": {
-                                                "bsonType": "string",
-                                                "maxLength": 50,
-                                                "description": "Supplier country"
-                                            }
-                                        },
-                                        "description": "Supplier info (quickview)"
-                                    }
-                                },
-                                "description": "Brand and Supplier information"
-                            },
-                            "graduations": {
-                                "bsonType": "object",
-                                "required": ["left_lens", "right_lens"],
-                                "properties": {
-                                    "left_lens": {
-                                        "bsonType": "double",
-                                        "minimum": -20.00,
-                                        "maximum": 20.00,
-                                        "description": "Left lens graduation"
-                                    },
-                                    "right_lens": {
-                                        "bsonType": "double",
-                                        "minimum": -20.00,
-                                        "maximum": 20.00,
-                                        "description": "Right lens graduation"
-                                    }
-                            },
-                            "description": "Lens graduations"
-                            },
-                            "lens_colors": {
-                                "bsonType": "object",
-                                "required": ["left", "right"],
-                                "properties": {
-                                    "left": {
-                                        "bsonType": "string",
-                                        "maxLength": 30,
-                                        "description": "Left lens color"
-                                    },
-                                    "right": {
-                                        "bsonType": "string",
-                                        "maxLength": 30,
-                                        "description": "Right lens color"
-                                    }
-                                },
-                                "description": "Lens colors"
-                            },
-                            "frame": {
-                                "bsonType": "object",
-                                "required": ["type", "color"],
-                                "properties": {
-                                    "type": {
-                                        "bsonType": "string",
-                                        "enum": ["floating", "plastic", "metallic"],
-                                        "description": "Frame type"
-                                    },
-                                    "color": {
-                                        "bsonType": "string",
-                                        "maxLength": 30,
-                                        "description": "Frame Color"
-                                    }
-                                },
-                                "description": "Frame Info"
-                            },
-                            "price": {
-                                "bsonType": "double",
-                                "minimum": 0.01,
-                                "description": "Price at time of purchase"
-                            }
-                        },
-                        "description": "Glasses product info (quickview)"
+                    "right_lens": {
+                      "bsonType": "double",
+                      "minimum": -20.00,
+                      "maximum": 20.00,
+                      "description": "Right lens graduation"
                     }
-              }
+                  }
+                },
+                "lens_colors": {
+                  "bsonType": "object",
+                  "required": ["left", "right"],
+                  "properties": {
+                    "left": {
+                      "bsonType": "string",
+                      "maxLength": 30,
+                      "description": "Left lens color"
+                    },
+                    "right": {
+                      "bsonType": "string",
+                      "maxLength": 30,
+                      "description": "Right lens color"
+                    }
+                  }
+                },
+                "frame": {
+                  "bsonType": "object",
+                  "required": ["type", "color"],
+                  "properties": {
+                    "type": {
+                      "bsonType": "string",
+                      "enum": ["floating", "plastic", "metallic"],
+                      "description": "Frame type"
+                    },
+                    "color": {
+                      "bsonType": "string",
+                      "maxLength": 30,
+                      "description": "Frame color"
+                    }
+                  }
+                },
+                "price": {
+                  "bsonType": "double",
+                  "minimum": 0.01,
+                  "description": "Price at purchase"
+                }
+              },
+              "description": "Snapshot of glasses details at time of purchase"
             }
-        },
-        "created_at": {
-            "bsonType": "date",
-            "description": "Document creation timestamp"
-        },
-        "updated_at": {
-            "bsonType": "date",
-            "description": "Document last update timestamp"
+          }
         }
+      },
+      "created_at": {
+        "bsonType": "date",
+        "description": "Document creation timestamp"
+      },
+      "updated_at": {
+        "bsonType": "date",
+        "description": "Document last update timestamp"
+      }
     }
   }
 }

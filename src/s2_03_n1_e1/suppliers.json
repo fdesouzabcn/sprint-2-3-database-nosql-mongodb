@@ -1,0 +1,88 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "_id",
+      "supplier_name",
+      "nif",
+      "contact",
+      "address",
+      "country"
+    ],
+    "properties": {
+      "_id": {
+        "bsonType": "objectId",
+        "description": "Unique identifier for the supplier"
+      },
+      "supplier_name": {
+        "bsonType": "string",
+        "minLength": 1,
+        "maxLength": 100,
+        "description": "Name of the supplier"
+      },
+      "nif": {
+        "bsonType": "string",
+        "minLength": 1,
+        "maxLength": 25,
+        "description": "Tax identification number"
+      },
+      "contact": {
+        "bsonType": "object",
+        "required": ["phone_country_code", "phone"],
+        "properties": {
+          "phone_country_code": {
+            "bsonType": "string",
+            "description": "Country code for phone"
+          },
+          "phone": {
+            "bsonType": "string",
+            "description": "Phone number"
+          },
+          "fax": {
+            "bsonType": "string",
+            "description": "Fax number (optional)"
+          }
+        },
+        "description": "Contact information"
+      },
+      "address": {
+        "bsonType": "object",
+        "required": ["line_one", "city", "postcode"],
+        "properties": {
+          "line_one": {
+            "bsonType": "string",
+            "description": "Primary address line"
+          },
+          "line_two": {
+            "bsonType": "string",
+            "description": "Secondary address line (optional)"
+          },
+          "city": {
+            "bsonType": "string",
+            "maxLength": 50,
+            "description": "City name"
+          },
+          "postcode": {
+            "bsonType": "string",
+            "maxLength": 10,
+            "description": "Postal code"
+          }
+        },
+        "description": "Address information"
+      },
+      "country": {
+        "bsonType": "string",
+        "maxLength": 50,
+        "description": "Country name"
+      },
+      "created_at": {
+        "bsonType": "date",
+        "description": "Document creation timestamp"
+      },
+      "updated_at": {
+        "bsonType": "date",
+        "description": "Document last update timestamp"
+      }
+    }
+  }
+}
