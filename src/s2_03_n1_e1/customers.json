@@ -99,6 +99,7 @@
               "bsonType": "object",
               "required": [
                 "brand_name",
+                "suppliers_id",
                 "graduations",
                 "lens_colors",
                 "frame",
@@ -109,6 +110,10 @@
                   "bsonType": "string",
                   "maxLength": 50,
                   "description": "Brand at purchase time"
+                },
+                "supplier_id":{
+                  "bsonType":"objectId",
+                  "description":"Direct reference to supplier collection - to enable fast lookup"
                 },
                 "graduations": {
                   "bsonType": "object",
