@@ -9,7 +9,8 @@
       "graduations",
       "lens_colors",
       "price",
-      "supplier_id"
+      "supplier",
+      "shoppers"
     ],
     "properties": {
       "_id": {
@@ -73,10 +74,41 @@
         "minimum": 0.01,
         "description": "Current selling price"
       },
-      "supplier_id": {
-        "bsonType": "objectId",
-        "description": "Reference to suppliers collection (for magnifying glass detail)"
+      "supplier":{
+        "bsonType":"object",
+        "required":["supplier_id","supplier_name"],
+        "properties":{
+          "supplier_id": {
+            "bsonType": "objectId",
+            "description": "Reference to suppliers collection (for magnifying glass detail)"
+          },
+          "supplier_name": {
+            "bsonType": "string",
+            "maxLength": 100,
+            "description": "Supplier name"
+          }
+        },
+        "description":"Supplier info"
       },
+      "shoppers":{
+        "bsonType":"array",
+        "items":{
+          "bsonType":"object",
+          "required":["customer_id", "customer_name"],
+          "properties":{
+            "customer_id":{
+              "bsonType":"objectId",
+              "description": "Reference to customers collection (used when name is clicked)"
+            },
+            "customer_name":{
+              "bsonType":"string",
+              "maxLength": 100,
+              "description": "Customer Name (displayed in Bought By list)"
+            }
+          }
+        },
+        "description":"List of customers who bought this product"
+      },    
       "created_at": {
         "bsonType": "date",
         "description": "Document creation timestamp"
