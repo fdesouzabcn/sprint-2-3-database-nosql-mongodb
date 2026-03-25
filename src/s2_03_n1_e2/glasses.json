@@ -5,12 +5,8 @@
       "_id",
       "brand_name",
       "frame_type",
-      "frame_color",
-      "graduations",
-      "lens_colors",
       "price",
-      "supplier",
-      "shoppers"
+      "supplier"
     ],
     "properties": {
       "_id": {
@@ -27,47 +23,6 @@
         "bsonType": "string",
         "enum": ["floating", "plastic", "metallic"],
         "description": "Frame type"
-      },
-      "frame_color": {
-        "bsonType": "string",
-        "maxLength": 30,
-        "description": "Frame color"
-      },
-      "graduations": {
-        "bsonType": "object",
-        "required": ["left_lens", "right_lens"],
-        "properties": {
-          "left_lens": {
-            "bsonType": "double",
-            "minimum": -20.00,
-            "maximum": 20.00,
-            "description": "Left lens graduation"
-          },
-          "right_lens": {
-            "bsonType": "double",
-            "minimum": -20.00,
-            "maximum": 20.00,
-            "description": "Right lens graduation"
-          }
-        },
-        "description": "Lens graduations"
-      },
-      "lens_colors": {
-        "bsonType": "object",
-        "required": ["left", "right"],
-        "properties": {
-          "left": {
-            "bsonType": "string",
-            "maxLength": 30,
-            "description": "Left lens color"
-          },
-          "right": {
-            "bsonType": "string",
-            "maxLength": 30,
-            "description": "Right lens color"
-          }
-        },
-        "description": "Lens colors"
       },
       "price": {
         "bsonType": "double",
@@ -90,25 +45,6 @@
         },
         "description":"Supplier info"
       },
-      "shoppers":{
-        "bsonType":"array",
-        "items":{
-          "bsonType":"object",
-          "required":["customer_id", "customer_name"],
-          "properties":{
-            "customer_id":{
-              "bsonType":"objectId",
-              "description": "Reference to customers collection (used when name is clicked)"
-            },
-            "customer_name":{
-              "bsonType":"string",
-              "maxLength": 100,
-              "description": "Customer Name (displayed in Bought By list)"
-            }
-          }
-        },
-        "description":"List of customers who bought this product"
-      },    
       "created_at": {
         "bsonType": "date",
         "description": "Document creation timestamp"

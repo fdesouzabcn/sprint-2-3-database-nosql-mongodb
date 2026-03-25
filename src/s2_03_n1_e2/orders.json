@@ -7,6 +7,9 @@
       "glasses_id",
       "customer_id",
       "employee_id",
+      "frame_color",
+      "graduations",
+      "lens_colors",
       "quantity",
       "unit_price",
       "total_amount"
@@ -32,6 +35,47 @@
         "bsonType": "objectId",
         "description": "Reference to employees collection"
       },
+      "frame_color": {
+        "bsonType": "string",
+        "maxLength": 30,
+        "description": "Frame color"
+      },
+      "graduations": {
+        "bsonType": "object",
+        "required": ["left_lens", "right_lens"],
+        "properties": {
+          "left_lens": {
+            "bsonType": "double",
+            "minimum": -20.00,
+            "maximum": 20.00,
+            "description": "Left lens graduation"
+          },
+          "right_lens": {
+            "bsonType": "double",
+            "minimum": -20.00,
+            "maximum": 20.00,
+            "description": "Right lens graduation"
+          }
+        },
+        "description": "Lens graduations"
+      },
+      "lens_colors": {
+        "bsonType": "object",
+        "required": ["left", "right"],
+        "properties": {
+          "left": {
+            "bsonType": "string",
+            "maxLength": 30,
+            "description": "Left lens color"
+          },
+          "right": {
+            "bsonType": "string",
+            "maxLength": 30,
+            "description": "Right lens color"
+          }
+        },
+        "description": "Lens colors"
+      },
       "quantity": {
         "bsonType": "int",
         "minimum": 1,
@@ -54,7 +98,7 @@
       "updated_at": {
         "bsonType": "date",
         "description": "Document last update timestamp"
-        }
+      }
     }
   }
 }
